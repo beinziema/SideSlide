@@ -1,0 +1,18 @@
+workflows:
+  sideslide-debug:
+    name: SideSlide Debug APK
+    instance_type: linux_x2
+    max_build_duration: 30
+
+    scripts:
+      - name: Set Android SDK location
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+
+      - name: Build debug APK
+        script: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
